@@ -1,42 +1,36 @@
-document.addEventListener('DOMContentLoaded', async function () {
-    // Select the display container
-    const dataContainer = document.getElementById('api-data');
-
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // API endpoint
+        // 1. Define API URL
         const apiUrl = 'https://jsonplaceholder.typicode.com/users';
-
-        // Fetch user data
+        
+        // 2. Select display container
+        const dataContainer = document.getElementById('api-data');
+        
+        // 3. Fetch data with error handling
         const response = await fetch(apiUrl);
-
-        // Check if response is successful
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Parse JSON data
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
+        // 4. Process JSON data
         const users = await response.json();
-
-        // Clear loading message
+        
+        // 5. Clear loading message
         dataContainer.innerHTML = '';
-
-        // Create list element
+        
+        // 6. Create and populate user list
         const userList = document.createElement('ul');
-
-        // Populate list with user names
         users.forEach(user => {
-            const listItem = document.createElement('li');
-            listItem.textContent = user.name;
-            userList.appendChild(listItem);
+            const li = document.createElement('li');
+            li.textContent = user.name;
+            userList.appendChild(li);
         });
-
-        // Display the list
+        
+        // 7. Display results
         dataContainer.appendChild(userList);
-
+        
     } catch (error) {
-        // Handle errors
-        dataContainer.innerHTML = '';
-        dataContainer.textContent = 'Failed to load user data.';
-        console.error('Error fetching user data:', error);
+        // 8. Handle errors
+        const dataContainer = document.getElementById('api-data');
+        dataContainer.innerHTML = 'Failed to load user data.';
+        console.error('Fetch error:', error);
     }
 });
