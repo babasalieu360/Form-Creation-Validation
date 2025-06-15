@@ -25,3 +25,4 @@ This project implements a client-side validated user registration form using HTM
 - CSS3
 - JavaScript (ES6)
 - Git/GitHub for version control
+  
