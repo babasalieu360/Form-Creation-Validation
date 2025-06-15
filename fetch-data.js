@@ -1,36 +1,31 @@
-document.addEventListener('DOMContentLoaded', async () => {
+async function fetchUserData() {
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+    const dataContainer = document.getElementById('api-data');
+
     try {
-        // 1. Define API URL
-        const apiUrl = 'https://jsonplaceholder.typicode.com/users';
-        
-        // 2. Select display container
-        const dataContainer = document.getElementById('api-data');
-        
-        // 3. Fetch data with error handling
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        
-        // 4. Process JSON data
         const users = await response.json();
-        
-        // 5. Clear loading message
+
+        // Clear loading message
         dataContainer.innerHTML = '';
-        
-        // 6. Create and populate user list
+
+        // Create a list element
         const userList = document.createElement('ul');
+
+        // Loop through each user and create list items
         users.forEach(user => {
-            const li = document.createElement('li');
-            li.textContent = user.name;
-            userList.appendChild(li);
+            const listItem = document.createElement('li');
+            listItem.textContent = user.name;
+            userList.appendChild(listItem);
         });
-        
-        // 7. Display results
+
+        // Append the list to the container
         dataContainer.appendChild(userList);
-        
     } catch (error) {
-        // 8. Handle errors
-        const dataContainer = document.getElementById('api-data');
+        // Display error message
         dataContainer.innerHTML = 'Failed to load user data.';
-        console.error('Fetch error:', error);
     }
-});
+}
+
+// Run the function when the page content is loaded
+document.addEventListener('DOMContentLoaded', fetchUserData);
